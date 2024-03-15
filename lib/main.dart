@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData.light(),
-      initialRoute: '/FertilizerCalculateScreen',
+      initialRoute: '/WeatherCalculateScreen',
       routes: {
         '/': (context) => LoginScreen(),
         '/register': (context) => RegisterScreen(),
