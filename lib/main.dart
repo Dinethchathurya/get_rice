@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get_rice/Screens/Current.dart';
 
 import 'Screens/FertilizerCalculateScreen.dart';
 import 'Screens/LoginScreen.dart';
@@ -21,6 +22,7 @@ class MyApp extends StatelessWidget {
         '/register': (context) => RegisterScreen(),
         '/FertilizerCalculateScreen': (context) => FertilizerCalculateScreen(),
         '/WeatherCalculateScreen': (context) => WeatherCalculateScreen(),
+        'CurrentPage': (context) => CurrentPage()
       },
     );
   }
