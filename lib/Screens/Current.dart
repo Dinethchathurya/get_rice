@@ -455,12 +455,7 @@ class _CurrentPageState extends State<CurrentPage> {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                onPressed: () {
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(builder: (context) => ResultPage()),
-                  );
-                },
+                onPressed: () {},
                 style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all(
                         Color.fromARGB(255, 03, 169, 244))),
