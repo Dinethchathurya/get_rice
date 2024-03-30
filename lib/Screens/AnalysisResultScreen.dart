@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get_rice/Screens/FertilizerCalculateScreen.dart';
 
 class resultScreen extends StatefulWidget {
   const resultScreen({Key? key}) : super(key: key);
@@ -447,6 +448,26 @@ class _resultScreenState extends State<resultScreen> {
               ),
               const SizedBox(
                 height: 20.0,
+              ),
+              ElevatedButton(
+                child: const Text(
+                  "Home",
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                onPressed: () {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => FertilizerCalculateScreen()),
+                  );
+                },
+                style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(
+                        Color.fromARGB(255, 3, 169, 244))),
               ),
             ],
           ),
