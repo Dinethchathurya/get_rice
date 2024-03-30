@@ -4,7 +4,7 @@ import 'Screens/FertilizerCalculateScreen.dart';
 import 'Screens/LoginScreen.dart';
 import 'Screens/RegisterScreen.dart';
 import 'Screens/WeatherCalculateScreen.dart';
-import 'Screens/bottomsheet.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -15,13 +15,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData.light(),
-      initialRoute: '/bottomsheet',
+      initialRoute: '/',
       routes: {
         '/': (context) => LoginScreen(),
         '/register': (context) => RegisterScreen(),
         '/FertilizerCalculateScreen': (context) => FertilizerCalculateScreen(),
         '/WeatherCalculateScreen': (context) => WeatherCalculateScreen(),
-        '/bottomsheet' : (context) => BottomSheetForPastData(),
       },
     );
   }
