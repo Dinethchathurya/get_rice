@@ -71,7 +71,7 @@ class _PastState extends State<Past> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text("Rain (mm):"),
+                            Text("Rain (Previous):"),
                             Container(
                               width: 60,
                               height: 60,
@@ -82,7 +82,7 @@ class _PastState extends State<Past> {
                               padding: EdgeInsets.all(8.0),
                               child: Center(
                                 child: Text(
-                                  "10",
+                                  "10mm",
                                   style: TextStyle(
                                     color: Colors.black,
                                     fontWeight: FontWeight.bold,
@@ -186,7 +186,7 @@ class _PastState extends State<Past> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text("Required Amount (mm/kg):"),
+                            Text("Required Amount (mg/kg):"),
                             Container(
                               width: 60,
                               height: 60,
@@ -280,7 +280,7 @@ class _PastState extends State<Past> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text("Required Amount (mm/kg):"),
+                            Text("Required Amount (mg/kg):"),
                             Container(
                               width: 60,
                               height: 60,
@@ -374,7 +374,7 @@ class _PastState extends State<Past> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text("Required Amount (mm/kg):"),
+                            Text("Required Amount (mg/kg):"),
                             Container(
                               width: 60,
                               height: 60,
