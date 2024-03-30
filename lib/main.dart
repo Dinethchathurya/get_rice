@@ -1,11 +1,18 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 import 'Screens/FertilizerCalculateScreen.dart';
 import 'Screens/LoginScreen.dart';
 import 'Screens/RegisterScreen.dart';
 import 'Screens/WeatherCalculateScreen.dart';
+import 'firebase_options.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
   runApp(const MyApp());
 }
 
@@ -15,13 +22,32 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData.light(),
-      initialRoute: '/',
+      initialRoute: '/getpastdata',
       routes: {
         '/': (context) => LoginScreen(),
         '/register': (context) => RegisterScreen(),
         '/FertilizerCalculateScreen': (context) => FertilizerCalculateScreen(),
         '/WeatherCalculateScreen': (context) => WeatherCalculateScreen(),
+        '/getpastdata': (context) => GetPastData(),
       },
+    );
+  }
+}
+
+class GetPastData extends StatelessWidget {
+  const GetPastData({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: TextButton(
+          onPressed: () {
+            //
+          },
+          child: Text('kjbhksd'),
+        ),
+      ),
     );
   }
 }
