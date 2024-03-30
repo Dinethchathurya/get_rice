@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class Past extends StatefulWidget {
-  const Past({super.key});
+  const Past({Key? key}) : super(key: key);
 
   @override
   State<Past> createState() => _PastState();
@@ -11,129 +11,464 @@ class _PastState extends State<Past> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.blue[200],
-          title: const Center(
-            child: Text(
-              "Past",
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 30,
-                fontWeight: FontWeight.bold,
-              ),
+      appBar: AppBar(
+        backgroundColor: Color.fromARGB(255, 03, 169, 244),
+        title: const Center(
+          child: Text(
+            "Past",
+            style: TextStyle(
+              color: Colors.black,
+              fontSize: 30,
+              fontWeight: FontWeight.bold,
             ),
           ),
         ),
-        body: Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: Column(children: [
-            Expanded(
-              child: ListView.separated(
-                // Represents the number of cards to be displayed.
-                itemCount: 4,
-                separatorBuilder: (BuildContext context, int index) {
-                  return const SizedBox(
-                    // Adjusts the space between each card.
-                    height: 50,
-                  );
-                },
-                itemBuilder: (BuildContext context, int index) {
-                  String labelText = '';
-                  String data = '';
-
-                  switch (index) {
-                    case 0:
-                      labelText = 'Fertilizer Type';
-                      data = 'Retrieve type from database';
-                      break;
-
-                    case 1:
-                      labelText = 'Required Amount';
-                      data = 'Retrieve amount from database';
-                      break;
-
-                    case 2:
-                      labelText = 'Expected Date Of Rain';
-                      data = 'Retrieve date from database';
-                      break;
-
-                    case 3:
-                      labelText = 'Expected Time Of Rain';
-                      data = 'Retrieve time from database';
-                      break;
-                  }
-                  return ItemWidget(
-                    labelText: labelText,
-                    data: data,
-                  );
-                },
+      ),
+      body: Padding(
+        padding: EdgeInsets.all(20.0),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Center(
+                child: Container(
+                  padding:
+                      EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+                  decoration: BoxDecoration(
+                    color: Color.fromARGB(255, 189, 189, 189),
+                    borderRadius: BorderRadius.circular(30.0),
+                  ),
+                  child: const Text(
+                    "Weather",
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 20,
+                      fontWeight: FontWeight.w800,
+                    ),
+                  ),
+                ),
               ),
-            ),
-            Align(
-                alignment: Alignment.bottomRight,
-                child: Padding(
+              const SizedBox(
+                height: 16.0,
+              ),
+              SizedBox(
+                height: 250,
+                width: double.infinity,
+                child: Card(
+                  elevation: 4.0,
+                  child: Padding(
                     padding: const EdgeInsets.all(12.0),
-                    child: ElevatedButton(
-                      onPressed: () {
-                        // Add the functionality to the button so that when pressed, the user will be directed to the current page.
-                      },
-                      child: const Text(
-                        'OK',
-                        style: TextStyle(
-                          color: Colors.black,
-                        ),
-                      ),
-                    )))
-          ]),
-        ));
-  }
-}
-
-class ItemWidget extends StatelessWidget {
-  const ItemWidget({super.key, required this.labelText, required this.data});
-
-  final String labelText;
-  final String data;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-        // The width is set to 'double.infinity' so that it can take the entire width of it's parent container.
-        width: double.infinity,
-        height: 100,
-        child: Card(
-            child: Center(
-                child: ListTile(
-                    title: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Expanded(
-                          child: Text(
-                            labelText,
-                            textAlign: TextAlign.left,
+                        Text(
+                          'Weather Details',
+                          style: TextStyle(
+                            fontSize: 16.0,
+                            fontWeight: FontWeight.bold,
                           ),
+                        ),
+                        SizedBox(height: 12.0),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text("Rain (mm):"),
+                            Container(
+                              width: 60,
+                              height: 60,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: Color.fromARGB(255, 197, 202, 233),
+                              ),
+                              padding: EdgeInsets.all(8.0),
+                              child: Center(
+                                child: Text(
+                                  "10",
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: 12.0),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text("Date:"),
+                            Container(
+                              padding: EdgeInsets.symmetric(
+                                  vertical: 8.0, horizontal: 16.0),
+                              decoration: BoxDecoration(
+                                color: Color.fromARGB(255, 197, 202, 233),
+                                borderRadius: BorderRadius.circular(30.0),
+                              ),
+                              child: Text(
+                                "2024-06-02",
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: 12.0),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text("Time:"),
+                            Container(
+                              padding: EdgeInsets.symmetric(
+                                  vertical: 8.0, horizontal: 36.0),
+                              decoration: BoxDecoration(
+                                color: Color.fromARGB(255, 197, 202, 233),
+                                borderRadius: BorderRadius.circular(30.0),
+                              ),
+                              child: Text(
+                                "14:18",
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       ],
                     ),
-                    trailing: Icon(Icons.expand_more),
-                    onTap: () {
-                      showDialog(
-                        context: context,
-                        builder: (context) {
-                          return AlertDialog(
-                            title: Text(labelText),
-                            content: Text(data),
-                            actions: [
-                              TextButton(
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                },
-                                child: Text('Close'),
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 16.0,
+              ),
+              Center(
+                child: Container(
+                  padding:
+                      EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+                  decoration: BoxDecoration(
+                    color: Color.fromARGB(255, 189, 189, 189),
+                    borderRadius: BorderRadius.circular(30.0),
+                  ),
+                  child: const Text(
+                    "Fertilizer",
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 20,
+                      fontWeight: FontWeight.w800,
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 16.0,
+              ),
+              SizedBox(
+                height: 250,
+                width: double.infinity,
+                child: Card(
+                  elevation: 4.0,
+                  child: Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Nitrogen',
+                          style: TextStyle(
+                            fontSize: 16.0,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        SizedBox(height: 12.0),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text("Required Amount (mm/kg):"),
+                            Container(
+                              width: 60,
+                              height: 60,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: Color.fromARGB(255, 197, 202, 233),
                               ),
-                            ],
-                          );
-                        },
-                      );
-                    }))));
+                              padding: EdgeInsets.all(8.0),
+                              child: Center(
+                                child: Text(
+                                  "82",
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: 12.0),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text("Type:"),
+                            Container(
+                              padding: EdgeInsets.symmetric(
+                                  vertical: 8.0, horizontal: 32.0),
+                              decoration: BoxDecoration(
+                                color: Color.fromARGB(255, 197, 202, 233),
+                                borderRadius: BorderRadius.circular(30.0),
+                              ),
+                              child: Text(
+                                "Urea",
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: 12.0),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text("pH:"),
+                            Container(
+                              padding: EdgeInsets.symmetric(
+                                  vertical: 8.0, horizontal: 36.0),
+                              decoration: BoxDecoration(
+                                color: Color.fromARGB(255, 197, 202, 233),
+                                borderRadius: BorderRadius.circular(30.0),
+                              ),
+                              child: Text(
+                                "6.2",
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 16.0,
+              ),
+              SizedBox(
+                height: 250,
+                width: double.infinity,
+                child: Card(
+                  elevation: 4.0,
+                  child: Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Phosphorus',
+                          style: TextStyle(
+                            fontSize: 16.0,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        SizedBox(height: 12.0),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text("Required Amount (mm/kg):"),
+                            Container(
+                              width: 60,
+                              height: 60,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: Color.fromARGB(255, 197, 202, 233),
+                              ),
+                              padding: EdgeInsets.all(8.0),
+                              child: Center(
+                                child: Text(
+                                  "52",
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: 12.0),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text("Type:"),
+                            Container(
+                              padding: EdgeInsets.symmetric(
+                                  vertical: 8.0, horizontal: 32.0),
+                              decoration: BoxDecoration(
+                                color: Color.fromARGB(255, 197, 202, 233),
+                                borderRadius: BorderRadius.circular(30.0),
+                              ),
+                              child: Text(
+                                "Diammonium Phosphate",
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: 12.0),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text("pH:"),
+                            Container(
+                              padding: EdgeInsets.symmetric(
+                                  vertical: 8.0, horizontal: 100.0),
+                              decoration: BoxDecoration(
+                                color: Color.fromARGB(255, 197, 202, 233),
+                                borderRadius: BorderRadius.circular(30.0),
+                              ),
+                              child: Text(
+                                "5.8",
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 16.0,
+              ),
+              SizedBox(
+                height: 250,
+                width: double.infinity,
+                child: Card(
+                  elevation: 4.0,
+                  child: Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Potassium',
+                          style: TextStyle(
+                            fontSize: 16.0,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        SizedBox(height: 12.0),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text("Required Amount (mm/kg):"),
+                            Container(
+                              width: 60,
+                              height: 60,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: Color.fromARGB(255, 197, 202, 233),
+                              ),
+                              padding: EdgeInsets.all(8.0),
+                              child: Center(
+                                child: Text(
+                                  "27",
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: 12.0),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text("Type:"),
+                            Container(
+                              padding: EdgeInsets.symmetric(
+                                  vertical: 8.0, horizontal: 50.0),
+                              decoration: BoxDecoration(
+                                color: Color.fromARGB(255, 197, 202, 233),
+                                borderRadius: BorderRadius.circular(30.0),
+                              ),
+                              child: Text(
+                                "Potassium Sulfate",
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: 12.0),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text("pH:"),
+                            Container(
+                              padding: EdgeInsets.symmetric(
+                                  vertical: 8.0, horizontal: 100.0),
+                              decoration: BoxDecoration(
+                                color: Color.fromARGB(255, 197, 202, 233),
+                                borderRadius: BorderRadius.circular(30.0),
+                              ),
+                              child: Text(
+                                "6.4",
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 20.0,
+              ),
+              ElevatedButton(
+                child: Text(
+                  "Continue",
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                onPressed: () {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => Current()),
+                  );
+                },
+                style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(
+                        Color.fromARGB(255, 03, 169, 244))),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }
