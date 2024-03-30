@@ -458,7 +458,7 @@ class _PastState extends State<Past> {
                 onPressed: () {
                   Navigator.pushReplacement(
                     context,
-                    MaterialPageRoute(builder: (context) => Current()),
+                    MaterialPageRoute(builder: (context) => CurrentPage()),
                   );
                 },
                 style: ButtonStyle(
