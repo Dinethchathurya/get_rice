@@ -1,3 +1,5 @@
+import 'dart:async';
+import 'dart:math';
 import 'package:flutter/material.dart';
 
 class CurrentPage extends StatefulWidget {
@@ -8,6 +10,41 @@ class CurrentPage extends StatefulWidget {
 }
 
 class _CurrentPageState extends State<CurrentPage> {
+  // Store the data that is retrieved from the sensors in a list.
+  List<FertilizerData> _sensorData = [];
+
+  @override
+  void initState() {
+    super.initState();
+    // Start data retrieval process.
+    _startDataRetrieval();
+  }
+
+  void _startDataRetrieval() {
+    Random random = Random();
+    Timer(Duration(seconds: random.nextInt(10)), _retrieveData);
+  }
+
+  // Retrieve data from the sensors
+  void _retrieveData() {
+    setState(() {
+      _sensorData.add(
+        FertilizerData(
+          name: '',
+          amount: 0,
+          ph: 0,
+          status: 'Recorded',
+          nitrogen: 20,
+          phosphorus: 30,
+          potassium: 40,
+        ),
+      );
+    });
+
+    // Schedule next data retrieval.
+    _startDataRetrieval();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,441 +61,98 @@ class _CurrentPageState extends State<CurrentPage> {
           ),
         ),
       ),
+      // The data taken from the sensors is appended to the list as a card.
       body: Padding(
         padding: EdgeInsets.all(20.0),
         child: SingleChildScrollView(
           child: Column(
+            children: _sensorData.map((data) {
+              return _buildFertilizerCard(data);
+            }).toList(),
+          ),
+        ),
+      ),
+      floatingActionButton: Container(
+        padding: EdgeInsets.symmetric(horizontal: 80.0),
+        child: FloatingActionButton.extended(
+          onPressed: () {},
+          label: Text('Continue'),
+          backgroundColor: Color.fromARGB(255, 03, 169, 244),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(30.0),
+          ),
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+    );
+  }
+
+  Widget _buildFertilizerCard(FertilizerData data) {
+    return SizedBox(
+      height: 250,
+      width: double.infinity,
+      child: Card(
+        elevation: 4.0,
+        child: Padding(
+          padding: const EdgeInsets.all(12.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Center(
-                child: Container(
-                  padding:
-                      EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
-                  decoration: BoxDecoration(
-                    color: Color.fromARGB(255, 189, 189, 189),
-                    borderRadius: BorderRadius.circular(30.0),
-                  ),
-                  child: const Text(
-                    "Weather",
+              Text(
+                "Nitrogen: ${data.nitrogen} mg/kg",
+                style: TextStyle(
+                  fontSize: 16.0,
+                ),
+              ),
+              SizedBox(height: 8.0),
+              Text(
+                "Phosphorus: ${data.phosphorus} mg/kg",
+                style: TextStyle(
+                  fontSize: 16.0,
+                ),
+              ),
+              SizedBox(height: 8.0),
+              Text(
+                "Potassium: ${data.potassium} mg/kg",
+                style: TextStyle(
+                  fontSize: 16.0,
+                ),
+              ),
+              SizedBox(height: 8.0),
+              Text(
+                "pH: ${data.ph}",
+                style: TextStyle(
+                  fontSize: 16.0,
+                ),
+              ),
+              SizedBox(height: 8.0),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "Status:",
                     style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 20,
-                      fontWeight: FontWeight.w800,
+                      fontSize: 16.0,
                     ),
                   ),
-                ),
-              ),
-              const SizedBox(
-                height: 16.0,
-              ),
-              SizedBox(
-                height: 250,
-                width: double.infinity,
-                child: Card(
-                  elevation: 4.0,
-                  child: Padding(
-                    padding: const EdgeInsets.all(12.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Weather Details',
-                          style: TextStyle(
-                            fontSize: 16.0,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        SizedBox(height: 12.0),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text("Rain (Now):"),
-                            Container(
-                              width: 60,
-                              height: 60,
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: Color.fromARGB(255, 197, 202, 233),
-                              ),
-                              padding: EdgeInsets.all(8.0),
-                              child: Center(
-                                child: Text(
-                                  "2mm",
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(height: 12.0),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text("Date:"),
-                            Container(
-                              padding: EdgeInsets.symmetric(
-                                  vertical: 8.0, horizontal: 16.0),
-                              decoration: BoxDecoration(
-                                color: Color.fromARGB(255, 197, 202, 233),
-                                borderRadius: BorderRadius.circular(30.0),
-                              ),
-                              child: Text(
-                                "2024-03-30",
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(height: 12.0),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text("Time:"),
-                            Container(
-                              padding: EdgeInsets.symmetric(
-                                  vertical: 8.0, horizontal: 36.0),
-                              decoration: BoxDecoration(
-                                color: Color.fromARGB(255, 197, 202, 233),
-                                borderRadius: BorderRadius.circular(30.0),
-                              ),
-                              child: Text(
-                                "17:11",
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
+                  Container(
+                    padding: EdgeInsets.symmetric(
+                      vertical: 8.0,
+                      horizontal: 36.0,
+                    ),
+                    decoration: BoxDecoration(
+                      color: _getStatusColor(data.status),
+                      borderRadius: BorderRadius.circular(30.0),
+                    ),
+                    child: Text(
+                      data.status,
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
-                ),
-              ),
-              const SizedBox(
-                height: 16.0,
-              ),
-              Center(
-                child: Container(
-                  padding:
-                      EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
-                  decoration: BoxDecoration(
-                    color: Color.fromARGB(255, 189, 189, 189),
-                    borderRadius: BorderRadius.circular(30.0),
-                  ),
-                  child: const Text(
-                    "Fertilizer",
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 20,
-                      fontWeight: FontWeight.w800,
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(
-                height: 16.0,
-              ),
-              SizedBox(
-                height: 250,
-                width: double.infinity,
-                child: Card(
-                  elevation: 4.0,
-                  child: Padding(
-                    padding: const EdgeInsets.all(12.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Nitrogen',
-                          style: TextStyle(
-                            fontSize: 16.0,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        SizedBox(height: 12.0),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text("Recorded Amount (mg/kg):"),
-                            Container(
-                              width: 60,
-                              height: 60,
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: Color.fromARGB(255, 197, 202, 233),
-                              ),
-                              padding: EdgeInsets.all(8.0),
-                              child: Center(
-                                child: Text(
-                                  "21",
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(height: 12.0),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text("pH:"),
-                            Container(
-                              padding: EdgeInsets.symmetric(
-                                  vertical: 8.0, horizontal: 36.0),
-                              decoration: BoxDecoration(
-                                color: Color.fromARGB(255, 197, 202, 233),
-                                borderRadius: BorderRadius.circular(30.0),
-                              ),
-                              child: Text(
-                                "7.2",
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(height: 12.0),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text("Status:"),
-                            Container(
-                              padding: EdgeInsets.symmetric(
-                                  vertical: 8.0, horizontal: 36.0),
-                              decoration: BoxDecoration(
-                                color: Color.fromARGB(255, 197, 202, 233),
-                                borderRadius: BorderRadius.circular(30.0),
-                              ),
-                              child: Text(
-                                "OK",
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(
-                height: 16.0,
-              ),
-              SizedBox(
-                height: 250,
-                width: double.infinity,
-                child: Card(
-                  elevation: 4.0,
-                  child: Padding(
-                    padding: const EdgeInsets.all(12.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Phosphorus',
-                          style: TextStyle(
-                            fontSize: 16.0,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        SizedBox(height: 12.0),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text("Recorded Amount (mg/kg):"),
-                            Container(
-                              width: 60,
-                              height: 60,
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: Color.fromARGB(255, 197, 202, 233),
-                              ),
-                              padding: EdgeInsets.all(8.0),
-                              child: Center(
-                                child: Text(
-                                  "41",
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(height: 12.0),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text("pH:"),
-                            Container(
-                              padding: EdgeInsets.symmetric(
-                                  vertical: 8.0, horizontal: 40.0),
-                              decoration: BoxDecoration(
-                                color: Color.fromARGB(255, 197, 202, 233),
-                                borderRadius: BorderRadius.circular(30.0),
-                              ),
-                              child: Text(
-                                "6.0",
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(height: 12.0),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text("Status:"),
-                            Container(
-                              padding: EdgeInsets.symmetric(
-                                  vertical: 8.0, horizontal: 36.0),
-                              decoration: BoxDecoration(
-                                color: Color.fromARGB(255, 197, 202, 233),
-                                borderRadius: BorderRadius.circular(30.0),
-                              ),
-                              child: Text(
-                                "High",
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(
-                height: 16.0,
-              ),
-              SizedBox(
-                height: 250,
-                width: double.infinity,
-                child: Card(
-                  elevation: 4.0,
-                  child: Padding(
-                    padding: const EdgeInsets.all(12.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Potassium',
-                          style: TextStyle(
-                            fontSize: 16.0,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        SizedBox(height: 12.0),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text("Recorded Amount (mg/kg):"),
-                            Container(
-                              width: 60,
-                              height: 60,
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: Color.fromARGB(255, 197, 202, 233),
-                              ),
-                              padding: EdgeInsets.all(8.0),
-                              child: Center(
-                                child: Text(
-                                  "18",
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(height: 12.0),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text("pH:"),
-                            Container(
-                              padding: EdgeInsets.symmetric(
-                                  vertical: 8.0, horizontal: 38.0),
-                              decoration: BoxDecoration(
-                                color: Color.fromARGB(255, 197, 202, 233),
-                                borderRadius: BorderRadius.circular(30.0),
-                              ),
-                              child: Text(
-                                "5.9",
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(height: 12.0),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text("Status:"),
-                            Container(
-                              padding: EdgeInsets.symmetric(
-                                  vertical: 8.0, horizontal: 36.0),
-                              decoration: BoxDecoration(
-                                color: Color.fromARGB(255, 197, 202, 233),
-                                borderRadius: BorderRadius.circular(30.0),
-                              ),
-                              child: Text(
-                                "Low",
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(
-                height: 20.0,
-              ),
-              ElevatedButton(
-                child: Text(
-                  "Continue",
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                onPressed: () {},
-                style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(
-                        Color.fromARGB(255, 03, 169, 244))),
+                ],
               ),
             ],
           ),
@@ -466,4 +160,33 @@ class _CurrentPageState extends State<CurrentPage> {
       ),
     );
   }
+
+  Color _getStatusColor(String status) {
+    if (status == "Recorded") {
+      return Color.fromARGB(255, 197, 202, 233);
+    } else {
+      return Colors.grey;
+    }
+  }
+}
+
+// Create 'FertilizerData' class.
+class FertilizerData {
+  final String name;
+  final double amount;
+  final double ph;
+  final int nitrogen;
+  final int phosphorus;
+  final int potassium;
+  final String status;
+
+  FertilizerData({
+    required this.name,
+    required this.amount,
+    required this.ph,
+    required this.nitrogen,
+    required this.phosphorus,
+    required this.potassium,
+    required this.status,
+  });
 }
