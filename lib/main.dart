@@ -15,13 +15,13 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData.light(),
-      initialRoute: '/bottomsheet',
+      initialRoute: '/',
       routes: {
         '/': (context) => LoginScreen(),
         '/register': (context) => RegisterScreen(),
         '/FertilizerCalculateScreen': (context) => FertilizerCalculateScreen(),
         '/WeatherCalculateScreen': (context) => WeatherCalculateScreen(),
-        '/bottomsheet' : (context) => BottomSheetForPastData(),
+       // '/bottomsheet' : (context) => BottomSheetForPastData(),
       },
     );
   }
