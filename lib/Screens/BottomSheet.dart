@@ -7,6 +7,11 @@ class BottomSheetWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
+        child: Container(
+          decoration: BoxDecoration(
+          color: Colors.blue,// set the desired color here
+          borderRadius: BorderRadius.circular(8)// Optional: for rounded corner
+      ),
         child: TextButton(
           onPressed: () {
           showModalBottomSheet(
@@ -17,7 +22,12 @@ class BottomSheetWidget extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   ListTile(
-                    title: Center(child:Text('Select a date')),
+                    title: Center(
+                        child:Text(
+                            'Select a date',
+                        style: TextStyle(color: Colors.blue),//Set text color
+                        ),
+                    ),
                     onTap: (){
                       //Add your logic for handling date selection
                     },
@@ -40,7 +50,12 @@ class BottomSheetWidget extends StatelessWidget {
                   ),
               ),
                 ListTile(
-                  title: Center(child: Text('Close')),
+                  title: Center(
+                      child: Text(
+                          'Close',
+                      style: TextStyle(color: Colors.blue),//Set text color
+                      ),
+                  ),
                   onTap: () {
                     Navigator.pop(context);
                   },
@@ -51,8 +66,12 @@ class BottomSheetWidget extends StatelessWidget {
             },
           );
         },
-          child: Text("Click"),
+          child: Text(
+          "Click",
+          style: TextStyle(color: Colors.white),// Set text color
+          ),
         ),
+    ),
       ),
     );
   }
