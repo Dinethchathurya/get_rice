@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get_rice/Services/StoreResults.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -114,6 +115,16 @@ class TestHome extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      body: Center(
+        child: TextButton(
+          onPressed: () {
+            StoreResults storeResults = StoreResults();
+            storeResults.store();
+          },
+          child: Text('click'),
+        ),
+      ),
+    );
   }
 }

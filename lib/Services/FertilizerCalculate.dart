@@ -1,4 +1,6 @@
-class FertilizerCalculate {
+import 'package:flutter/cupertino.dart';
+
+class FertilizerCalculate extends ChangeNotifier {
   // I get lower boundary of levels for calculation. Because if current soil levels are lower
   // than lower boundary's level then only we need to feed Fertilizer.
   static const shouldPresentInSoilNitrogen = 50;
