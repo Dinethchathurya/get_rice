@@ -7,22 +7,32 @@ class BottomSheetWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: TextButton( onPressed: () {
+        child: TextButton(
+          onPressed: () {
           showModalBottomSheet(
             context: context,
             builder: (BuildContext context) {
-              return SizedBox(
+              return Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                SizedBox(
                 height: 400,
-                child: Center(
-                  child: ElevatedButton(
-                    child: const Text('Close'),
-                    onPressed: () {
-                      Navigator.pop(context);
+                  child: ListView.builder(
+                    itemCount: 10, // Replace with your desired item count
+                    itemBuilder: (BuildContext context, int index) {
+                      return ListTile(
+                        title: Text('Item $index'),
+                        onTap: () {
+                          // Add your onTap logic here
+                        },
+                      );
                     },
-                  )
-                ),
+                  ),
+              ),
+                
+               ],
               );
-            }
+            },
           );
         },
           child: Text(
