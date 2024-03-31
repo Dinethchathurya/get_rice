@@ -5,7 +5,6 @@ import 'Screens/FertilizerCalculateScreen.dart';
 import 'Screens/LoginScreen.dart';
 import 'Screens/RegisterScreen.dart';
 import 'Screens/WeatherCalculateScreen.dart';
-import 'Services/SavePastDataInFirestore.dart';
 import 'firebase_options.dart';
 
 Future<void> main() async {
@@ -31,6 +30,24 @@ class MyApp extends StatelessWidget {
         '/WeatherCalculateScreen': (context) => WeatherCalculateScreen(),
         '/getpastdata': (context) => GetPastData(),
       },
+    );
+  }
+}
+
+class GetPastData extends StatelessWidget {
+  const GetPastData({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: TextButton(
+          onPressed: () {
+            //
+          },
+          child: Text('kjbhksd'),
+        ),
+      ),
     );
   }
 }
