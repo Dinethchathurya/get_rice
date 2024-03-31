@@ -12,7 +12,7 @@ class StoreResults extends ChangeNotifier {
 
   store(context) async {
     //before access data i need to run these methods.
-    await Provider.of<Weather>(context, listen: false).getdata();
+    await Provider.of<Weather>(context, listen: false).getData(context);
     await Provider.of<FertilizerCalculate>(context, listen: false).calculate();
 
     // results about Fertilizer.

@@ -7,6 +7,7 @@ import 'Screens/LoginScreen.dart';
 import 'Screens/RegisterScreen.dart';
 import 'Screens/WeatherCalculateScreen.dart';
 import 'Services/FertilizerCalculate.dart';
+import 'Services/GetLocation.dart';
 import 'Services/StoreResults.dart';
 import 'Services/WeatherCalculate.dart';
 import 'firebase_options.dart';
@@ -33,6 +34,9 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider<Weather>(
           create: (context) => Weather(),
+        ),
+        ChangeNotifierProvider<GetLocation>(
+          create: (context) => GetLocation(),
         ),
       ],
       builder: (BuildContext context, Widget) {

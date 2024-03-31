@@ -2,14 +2,22 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
+
+import 'GetLocation.dart';
 
 class Weather extends ChangeNotifier {
   late List<String> rainyDates = [];
 
-  getdata() async {
+  getData(context) async {
     String apiKey = '6f94d27289744596d64417bacd2fc36c';
-    double lat = 6.839118;
-    double lon = 80.021366;
+
+    //call get location method before get location data
+    await Provider.of<GetLocation>(context).determinePosition();
+
+    //get location date form location class
+    double lat = Provider.of<GetLocation>(context, listen: false).latitude;
+    double lon = Provider.of<GetLocation>(context, listen: false).longitude;
     Uri url = Uri.parse('https://api.openweathermap.org/data/2.5/forecast'
         '?lat=$lat&lon=$lon&appid=$apiKey');
 
