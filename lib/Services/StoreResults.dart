@@ -1,20 +1,45 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:provider/provider.dart';
 
-class StoreResults {
+import 'FertilizerCalculate.dart';
+import 'WeatherCalculate.dart';
+
+class StoreResults extends ChangeNotifier {
   final cloud = FirebaseFirestore.instance;
   final auth = FirebaseAuth.instance;
 
-  store() {
+  store(context) async {
+    //before access data i need to run these methods.
+    await Provider.of<Weather>(context, listen: false).getdata();
+    await Provider.of<FertilizerCalculate>(context, listen: false).calculate();
+
+    // results about Fertilizer.
+    final nitrogen = Provider.of<FertilizerCalculate>(context, listen: false)
+        .isNeedToFeedNitrogen;
+    final phosphorus = Provider.of<FertilizerCalculate>(context, listen: false)
+        .isNeedToFeedPhosphorus;
+    final potassium = Provider.of<FertilizerCalculate>(context, listen: false)
+        .isNeedToFeedPotassium;
+    final ph =
+        Provider.of<FertilizerCalculate>(context, listen: false).isNeedToFeedPh;
+
+    late List<String> rainy =
+        Provider.of<Weather>(context, listen: false).rainyDates;
+
+    // to store result
     final userid = auth.currentUser?.uid;
     final DateTime now = DateTime.now();
     final formattedDate =
         '${now.year}-${(now.month)}-${(now.day)}-${(now.hour)}-${(now.minute)}';
-    final city = <String, String>{
-      "name": "Los Angeles",
-      "state": "CA",
-      "country": "USA",
-      "user": userid ?? '',
+
+    final city = <String, dynamic>{
+      "nitrogen": nitrogen,
+      "phosphorus": phosphorus,
+      "potassium": potassium,
+      "ph": ph,
+      "dates": rainy,
     };
 
     cloud

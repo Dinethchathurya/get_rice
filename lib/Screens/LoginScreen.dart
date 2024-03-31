@@ -120,7 +120,7 @@ class TestHome extends StatelessWidget {
         child: TextButton(
           onPressed: () {
             StoreResults storeResults = StoreResults();
-            storeResults.store();
+            storeResults.store(context);
           },
           child: Text('click'),
         ),
