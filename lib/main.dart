@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'Screens/BottomSheet.dart';
 import 'Screens/FertilizerCalculateScreen.dart';
 import 'Screens/LoginScreen.dart';
 import 'Screens/RegisterScreen.dart';
@@ -15,12 +16,13 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData.light(),
-      initialRoute: '/',
+      initialRoute: '/bottomSheet',
       routes: {
         '/': (context) => LoginScreen(),
         '/register': (context) => RegisterScreen(),
         '/FertilizerCalculateScreen': (context) => FertilizerCalculateScreen(),
         '/WeatherCalculateScreen': (context) => WeatherCalculateScreen(),
+        '/bottomSheet' : (context) => BottomSheetWidget(),
       },
     );
   }
