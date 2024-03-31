@@ -12,13 +12,22 @@ class BottomSheetWidget extends StatelessWidget {
           showModalBottomSheet(
             context: context,
             builder: (BuildContext context) {
-              return Column(
+              return SingleChildScrollView(
+                child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
+                  ListTile(
+                    title: Center(child:Text('Select a date')),
+                    onTap: (){
+                      //Add your logic for handling date selection
+                    },
+                  ),
                 SizedBox(
                 height: 400,
+                  child: Center(
                   child: ListView.builder(
-                    itemCount: 10, // Replace with your desired item count
+                    shrinkWrap: true,
+                    itemCount: 8, // Replace with your desired item count
                     itemBuilder: (BuildContext context, int index) {
                       return ListTile(
                         title: Text('Item $index'),
@@ -28,16 +37,21 @@ class BottomSheetWidget extends StatelessWidget {
                       );
                     },
                   ),
+                  ),
               ),
-                
+                ListTile(
+                  title: Center(child: Text('Close')),
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                ),
                ],
+                ),
               );
             },
           );
         },
-          child: Text(
-            "Click"
-          ),
+          child: Text("Click"),
         ),
       ),
     );
