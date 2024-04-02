@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
-import '../Services/StoreResults.dart';
+import 'package:get_rice/Services/StoreResults.dart';
+import 'package:provider/provider.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -120,8 +120,7 @@ class TestHome extends StatelessWidget {
       body: Center(
         child: TextButton(
           onPressed: () {
-            StoreResults storeResults = StoreResults();
-            storeResults.store(context);
+            Provider.of<StoreResults>(context, listen: false).store(context);
           },
           child: Text('click'),
         ),
