@@ -29,20 +29,20 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<FertilizerCalculate>(
           create: (context) => FertilizerCalculate(),
         ),
+        ChangeNotifierProvider<StoreResults>(
+          create: (context) => StoreResults(),
+        ),
         ChangeNotifierProvider<Weather>(
           create: (context) => Weather(),
         ),
         ChangeNotifierProvider<GetLocation>(
           create: (context) => GetLocation(),
         ),
-        ChangeNotifierProvider<StoreResults>(
-          create: (context) => StoreResults(),
-        ),
       ],
       builder: (BuildContext context, Widget) {
         return MaterialApp(
           theme: ThemeData.light(),
-          initialRoute: '/testhome',
+          initialRoute: '/',
           routes: {
             '/': (context) => LoginScreen(),
             '/register': (context) => RegisterScreen(),
