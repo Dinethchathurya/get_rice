@@ -8,6 +8,7 @@ import 'Screens/RegisterScreen.dart';
 import 'Screens/WeatherCalculateScreen.dart';
 import 'Services/FertilizerCalculate.dart';
 import 'Services/GetLocation.dart';
+import 'Services/GetResults.dart';
 import 'Services/StoreResults.dart';
 import 'Services/WeatherCalculate.dart';
 import 'firebase_options.dart';
@@ -67,8 +68,11 @@ class TestHome extends StatelessWidget {
         child: TextButton(
             child: Text('click'),
             onPressed: () async {
-              StoreData storeData = StoreData();
-              storeData.store();
+              GetResult getResult = GetResult();
+              getResult.getResultFromFirebse();
+
+              // StoreData storeData = StoreData();
+              // storeData.store();
             }
 
             // FertilizerCalculate fertilizerCalculate = FertilizerCalculate();

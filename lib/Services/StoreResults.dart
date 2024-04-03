@@ -77,6 +77,7 @@ class StoreData extends ChangeNotifier {
         '${now.year}-${(now.month)}-${(now.day)}-${(now.hour)}-${(now.minute)}';
 
     final city = <String, dynamic>{
+      "date": formattedDate,
       "nitrogen": nitrogen,
       "phosphorus": phosphorus,
       "potassium": potassium,
@@ -84,12 +85,9 @@ class StoreData extends ChangeNotifier {
       "dates": rainy,
     };
 
-    db
+    await db
         .collection("result")
-        .doc(userid)
-        .collection(
-            formattedDate) // Use the formatted date as the collection name
-        .doc()
+        .doc('$userid$formattedDate')
         .set(city)
         .catchError((error) => print("Error writing document: $error"));
   }
