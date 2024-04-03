@@ -32,5 +32,7 @@ class GetLocation extends ChangeNotifier {
     var position = await Geolocator.getCurrentPosition();
     latitude = position.latitude;
     longitude = position.longitude;
+
+    print(latitude);
   }
 }

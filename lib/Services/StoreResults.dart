@@ -1,32 +1,74 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:provider/provider.dart';
 
 import 'FertilizerCalculate.dart';
+import 'GetLocation.dart';
 import 'WeatherCalculate.dart';
+//
+// class StoreResults extends ChangeNotifier {
+//   final cloud = FirebaseFirestore.instance;
+//   final auth = FirebaseAuth.instance;
+//
+//   store(
+//     BuildContext context, {
+//     required List<String> rainyDates,
+//     required nitrogen,
+//     required phosphorus,
+//     required potassium,
+//     required ph,
+//   }) async {
+//     // results about Fertilizer.
+//
+//     Weather weather = Weather();
+//     // await weather.getData(context);
+//
+//     final userid = auth.currentUser?.uid;
+//     final DateTime now = DateTime.now();
+//     final formattedDate =
+//         '${now.year}-${(now.month)}-${(now.day)}-${(now.hour)}-${(now.minute)}';
+//
+//     final city = <String, dynamic>{
+//       "nitrogen": nitrogen,
+//       "phosphorus": phosphorus,
+//       "potassium": potassium,
+//       "ph": ph,
+//       "dates": rainyDates,
+//     };
+//
+//     cloud
+//         .collection("result")
+//         .doc(userid)
+//         .collection(
+//             formattedDate) // Use the formatted date as the collection name
+//         .doc()
+//         .set(city)
+//         .catchError((error) => print("Error writing document: $error"));
+//   }
+//
 
-class StoreResults extends ChangeNotifier {
-  final cloud = FirebaseFirestore.instance;
-  final auth = FirebaseAuth.instance;
+class StoreData extends ChangeNotifier {
+  store() async {
+    var db = FirebaseFirestore.instance;
+    var auth = FirebaseAuth.instance;
 
-  store(context) async {
     //before access data i need to run these methods.
-    await Provider.of<Weather>(context, listen: false).getData(context);
-    await Provider.of<FertilizerCalculate>(context, listen: false).calculate();
+    FertilizerCalculate fertilizerCalculate = FertilizerCalculate();
+    await fertilizerCalculate.calculate();
+
+    GetLocation getLocation = GetLocation();
+    await getLocation.determinePosition();
+
+    Weather weather = Weather();
+    await weather.getData();
 
     // results about Fertilizer.
-    final nitrogen = Provider.of<FertilizerCalculate>(context, listen: false)
-        .isNeedToFeedNitrogen;
-    final phosphorus = Provider.of<FertilizerCalculate>(context, listen: false)
-        .isNeedToFeedPhosphorus;
-    final potassium = Provider.of<FertilizerCalculate>(context, listen: false)
-        .isNeedToFeedPotassium;
-    final ph =
-        Provider.of<FertilizerCalculate>(context, listen: false).isNeedToFeedPh;
+    final nitrogen = fertilizerCalculate.isNeedToFeedNitrogen;
+    final phosphorus = fertilizerCalculate.isNeedToFeedPhosphorus;
+    final potassium = fertilizerCalculate.isNeedToFeedPotassium;
+    final ph = fertilizerCalculate.isNeedToFeedPh;
 
-    late List<String> rainy =
-        Provider.of<Weather>(context, listen: false).rainyDates;
+    late List<String> rainy = weather.rainyDates;
 
     // to store result
     final userid = auth.currentUser?.uid;
@@ -42,7 +84,7 @@ class StoreResults extends ChangeNotifier {
       "dates": rainy,
     };
 
-    cloud
+    db
         .collection("result")
         .doc(userid)
         .collection(

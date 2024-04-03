@@ -29,8 +29,8 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<FertilizerCalculate>(
           create: (context) => FertilizerCalculate(),
         ),
-        ChangeNotifierProvider<StoreResults>(
-          create: (context) => StoreResults(),
+        ChangeNotifierProvider<StoreData>(
+          create: (context) => StoreData(),
         ),
         ChangeNotifierProvider<Weather>(
           create: (context) => Weather(),
@@ -42,7 +42,7 @@ class MyApp extends StatelessWidget {
       builder: (BuildContext context, Widget) {
         return MaterialApp(
           theme: ThemeData.light(),
-          initialRoute: '/',
+          initialRoute: '/testhome',
           routes: {
             '/': (context) => LoginScreen(),
             '/register': (context) => RegisterScreen(),
@@ -53,6 +53,46 @@ class MyApp extends StatelessWidget {
           },
         );
       },
+    );
+  }
+}
+
+class TestHome extends StatelessWidget {
+  const TestHome({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: TextButton(
+            child: Text('click'),
+            onPressed: () async {
+              StoreData storeData = StoreData();
+              storeData.store();
+            }
+
+            // FertilizerCalculate fertilizerCalculate = FertilizerCalculate();
+            // await fertilizerCalculate.calculate(); // Call necessary method
+            // await Provider.of<Weather>(context, listen: false).getData(context);
+            // StoreResults storeResults = StoreResults();
+            // storeResults.store(
+            //   context,
+            //   rainyDates:
+            //       Provider.of<Weather>(context, listen: false).rainyDates,
+            //   nitrogen: Provider.of<FertilizerCalculate>(context, listen: false)
+            //       .isNeedToFeedNitrogen,
+            //   phosphorus:
+            //       Provider.of<FertilizerCalculate>(context, listen: false)
+            //           .isNeedToFeedPhosphorus,
+            //   potassium:
+            //       Provider.of<FertilizerCalculate>(context, listen: false)
+            //           .isNeedToFeedPotassium,
+            //   ph: Provider.of<FertilizerCalculate>(context, listen: false)
+            //       .isNeedToFeedPh,
+            // );
+
+            ),
+      ),
     );
   }
 }
