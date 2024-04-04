@@ -2,6 +2,18 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+
+
+import 'Screens/BottomSheet.dart';
+
+
+
+import 'package:get_rice/Screens/Current.dart';
+import 'package:get_rice/Screens/Past.dart';
+
+
+import 'Screens/AnalysisResultScreen.dart';
+
 import 'Screens/FertilizerCalculateScreen.dart';
 import 'Screens/LoginScreen.dart';
 import 'Screens/RegisterScreen.dart';
@@ -13,18 +25,21 @@ import 'Services/StoreResults.dart';
 import 'Services/WeatherCalculate.dart';
 import 'firebase_options.dart';
 
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
   runApp(const MyApp());
+
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
   @override
   Widget build(BuildContext context) {
+
     return MultiProvider(
       providers: [
         ChangeNotifierProvider<FertilizerCalculate>(
@@ -51,8 +66,17 @@ class MyApp extends StatelessWidget {
                 FertilizerCalculateScreen(),
             '/WeatherCalculateScreen': (context) => WeatherCalculateScreen(),
             '/testhome': (context) => TestHome(),
+                    '/bottomSheet' : (context) => BottomSheetWidget(),
+         '/result': (context) => resultScreen(),
+        'CurrentPage': (context) => CurrentPage(),
+
+        '/result': (context) => resultScreen(),
+        'CurrentPage': (context) => CurrentPage(),
+
+        '/past': (context) => Past(),
           },
         );
+
       },
     );
   }
