@@ -7,7 +7,7 @@ class FertilizerCalculate {
   static const shouldPresentInSoilPh = 5.5;
 
   // sensor readings,
-  late int sensorNitrogen = 50;
+  late int sensorNitrogen = 40;
   late int sensorPhosphorus = 10;
   late int sensorPotassium = 99;
   late double sensorPh = 5.1;
@@ -34,17 +34,18 @@ class FertilizerCalculate {
   }
 
   calculateNitrogen(sensorNitrogen, shouldPresentInSoilNitrogen) {
-    late int distanceNitrogen = shouldPresentInSoilNitrogen - sensorNitrogen;
+    late int differenceInNitrogen =
+        shouldPresentInSoilNitrogen - sensorNitrogen;
 
     // To get Nitrogen(N) we use Urea as Fertilizer.
     // urea contains 46% nitrogen (N)
     //to get 1g of nitrogen (N) we need to get (100/46)g of Urea
-    int needToFeedUreaInMG = (distanceNitrogen * (100 / 46)).toInt();
+    int needToFeedUreaInMG = (differenceInNitrogen * (100 / 46)).toInt();
     //needToFeedUreaInMG has mg/kg
     // to convert kg/ha call convertToHectare() method.
     int needToFeedUreaInKG = convertToHectare(needToFeedUreaInMG);
 
-    return 'Nitrogen(N) level is low $distanceNitrogen to fix level you can use Urea $needToFeedUreaInMG mg/kg, $needToFeedUreaInKG kg/ha ';
+    return 'Nitrogen(N) level is low $differenceInNitrogen to fix level you can use Urea $needToFeedUreaInMG mg/kg, $needToFeedUreaInKG kg/ha ';
   }
 
   calculatePhosphorus(sensorPhosphorus, shouldPresentInSoilPhosphorus) {
