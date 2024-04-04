@@ -1,4 +1,6 @@
-class FertilizerCalculate {
+import 'package:flutter/cupertino.dart';
+
+class FertilizerCalculate extends ChangeNotifier {
   // I get lower boundary of levels for calculation. Because if current soil levels are lower
   // than lower boundary's level then only we need to feed Fertilizer.
   static const shouldPresentInSoilNitrogen = 50;
@@ -12,20 +14,23 @@ class FertilizerCalculate {
   late int sensorPotassium = 99;
   late double sensorPh = 5.1;
 
-  void calculate() {
-    late String isNeedToFeedNitrogen =
-        (sensorNitrogen < shouldPresentInSoilNitrogen)
-            ? calculateNitrogen(sensorNitrogen, shouldPresentInSoilNitrogen)
-            : 'Nitrogen level is ok ';
-    late String isNeedToFeedPhosphorus = (sensorPhosphorus <
-            shouldPresentInSoilPhosphorus)
+  //result strings
+  late String isNeedToFeedNitrogen;
+  late String isNeedToFeedPhosphorus;
+  late String isNeedToFeedPotassium;
+  late String isNeedToFeedPh;
+
+  calculate() {
+    isNeedToFeedNitrogen = (sensorNitrogen < shouldPresentInSoilNitrogen)
+        ? calculateNitrogen(sensorNitrogen, shouldPresentInSoilNitrogen)
+        : 'Nitrogen level is ok ';
+    isNeedToFeedPhosphorus = (sensorPhosphorus < shouldPresentInSoilPhosphorus)
         ? calculatePhosphorus(sensorPhosphorus, shouldPresentInSoilPhosphorus)
         : 'Phosphorus level is ok ';
-    late String isNeedToFeedPotassium =
-        (sensorPotassium < shouldPresentInSoilPotassium)
-            ? calculatePotassium(sensorPotassium, shouldPresentInSoilPotassium)
-            : 'Potassium level is ok';
-    late String isNeedToFeedPh = (sensorPh < shouldPresentInSoilPh)
+    isNeedToFeedPotassium = (sensorPotassium < shouldPresentInSoilPotassium)
+        ? calculatePotassium(sensorPotassium, shouldPresentInSoilPotassium)
+        : 'Potassium level is ok';
+    isNeedToFeedPh = (sensorPh < shouldPresentInSoilPh)
         ? calculatePh(sensorPh, shouldPresentInSoilPh)
         : 'Ph level is ok';
 
