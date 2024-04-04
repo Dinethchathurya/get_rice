@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get_rice/Screens/Past.dart';
 
 import 'Screens/FertilizerCalculateScreen.dart';
 import 'Screens/LoginScreen.dart';
@@ -17,10 +18,11 @@ class MyApp extends StatelessWidget {
       theme: ThemeData.light(),
       initialRoute: '/',
       routes: {
-        '/': (context) => LoginScreen(),
+        '/login': (context) => LoginScreen(),
         '/register': (context) => RegisterScreen(),
         '/FertilizerCalculateScreen': (context) => FertilizerCalculateScreen(),
         '/WeatherCalculateScreen': (context) => WeatherCalculateScreen(),
+        '/past': (context) => Past(),
       },
     );
   }
