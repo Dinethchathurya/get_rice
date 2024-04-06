@@ -1,27 +1,16 @@
 import 'package:flutter/material.dart';
-
-import 'Screens/FertilizerCalculateScreen.dart';
-import 'Screens/LoginScreen.dart';
-import 'Screens/RegisterScreen.dart';
-import 'Screens/WeatherCalculateScreen.dart';
+import 'homescreen.dart'; // Import the homescreen.dart file
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData.light(),
-      initialRoute: '/',
-      routes: {
-        '/': (context) => LoginScreen(),
-        '/register': (context) => RegisterScreen(),
-        '/FertilizerCalculateScreen': (context) => FertilizerCalculateScreen(),
-        '/WeatherCalculateScreen': (context) => WeatherCalculateScreen(),
-      },
+      title: 'My App',
+      home: HomePage(), // Use HomePage as the home screen
     );
   }
 }
