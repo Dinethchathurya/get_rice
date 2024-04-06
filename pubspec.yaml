@@ -41,6 +41,9 @@ dependencies:
   cloud_firestore: ^4.15.10
   provider: ^6.1.2
   geolocator: ^11.0.0
+#  dushan
+  bluetooth_classic: ^0.0.1
+  flutter_bluetooth_serial: ^0.4.0
 
 dev_dependencies:
   flutter_test:
