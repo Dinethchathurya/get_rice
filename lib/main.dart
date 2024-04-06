@@ -61,7 +61,7 @@ class MyApp extends StatelessWidget {
             '/result': (context) => resultScreen(),
             'CurrentPage': (context) => CurrentPage(),
             '/past': (context) => Past(),
-            '/homePage': (context) => BackgroundImageHomePage(),
+            '/homePage': (context) => NavigationExample(),
           },
         );
       },

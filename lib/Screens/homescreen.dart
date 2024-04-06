@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get_rice/page2.dart';
 import 'package:get_rice/page3.dart';
 
+import 'Current.dart';
+import 'Past.dart';
+
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -47,6 +50,7 @@ class HomePage extends StatelessWidget {
 
   Widget _buildBottomAppBar(BuildContext context) {
     return BottomAppBar(
+      color: Color(0XFF03A9F4),
       shape: CircularNotchedRectangle(), // Notch for floating action button
       notchMargin: 5,
       child: Row(
@@ -86,43 +90,14 @@ class HomePage extends StatelessWidget {
 class BackgroundImageHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Get Rice',
-          style: TextStyle(
-            color: Colors.white,
-          ),
-        ),
-        backgroundColor: Color(0XFF3F51B5),
-        iconTheme: IconThemeData(
-          color: Colors.white,
-        ),
-      ),
-      body: Container(
-        width: double.infinity, // Set width to fill the screen
-        height: double.infinity, // Set height to fill the screen
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: NetworkImage(
-                'https://images.unsplash.com/photo-1595974482597-4b8da8879bc5?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cGFkZHklMjBmaWVsZHxlbnwwfHwwfHx8MA%3D%3D'),
-            fit: BoxFit.cover,
-          ),
-        ),
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              // Card(
-              //   color: Colors.lightBlueAccent,
-              //   child: _SampleCard(cardName: 'Elevated Card'),
-              // ),
-              // Card(
-              //   color: Colors.lightBlueAccent,
-              //   child: _SampleCard(cardName: 'Filled Card'),
-              // ),
-            ],
-          ),
+    return Container(
+      width: double.infinity, // Set width to fill the screen
+      height: double.infinity, // Set height to fill the screen
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: NetworkImage(
+              'https://images.unsplash.com/photo-1595974482597-4b8da8879bc5?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cGFkZHklMjBmaWVsZHxlbnwwfHwwfHx8MA%3D%3D'),
+          fit: BoxFit.cover,
         ),
       ),
     );
@@ -145,6 +120,53 @@ class _SampleCard extends StatelessWidget {
           color: Colors.white,
         ),
       )),
+    );
+  }
+}
+
+class NavigationExample extends StatefulWidget {
+  const NavigationExample({super.key});
+
+  @override
+  State<NavigationExample> createState() => _NavigationExampleState();
+}
+
+class _NavigationExampleState extends State<NavigationExample> {
+  int currentPageIndex = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
+    return Scaffold(
+      bottomNavigationBar: NavigationBar(
+        onDestinationSelected: (int index) {
+          setState(() {
+            currentPageIndex = index;
+          });
+        },
+        indicatorColor: Colors.amber,
+        selectedIndex: currentPageIndex,
+        destinations: const <Widget>[
+          NavigationDestination(
+            selectedIcon: Icon(Icons.home),
+            icon: Icon(Icons.home_outlined),
+            label: 'Home',
+          ),
+          NavigationDestination(
+            icon: Icon(Icons.calculate),
+            label: 'Calculate',
+          ),
+          NavigationDestination(
+            icon: Icon(Icons.bar_chart),
+            label: 'GetPastData',
+          ),
+        ],
+      ),
+      body: <Widget>[
+        BackgroundImageHomePage(),
+        CurrentPage(),
+        Past(),
+      ][currentPageIndex],
     );
   }
 }
