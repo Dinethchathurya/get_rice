@@ -23,6 +23,9 @@ if (flutterVersionName == null) {
 }
 
 android {
+   // compileSdkVersion 33
+
+
     namespace "com.example.get_rice"
     compileSdkVersion flutter.compileSdkVersion
     ndkVersion flutter.ndkVersion
