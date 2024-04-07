@@ -3,7 +3,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 
 import 'FertilizerCalculate.dart';
-import 'GetLocation.dart';
 import 'WeatherCalculate.dart';
 
 class StoreData extends ChangeNotifier {
@@ -14,10 +13,6 @@ class StoreData extends ChangeNotifier {
     //before access data i need to run these methods.
     FertilizerCalculate fertilizerCalculate = FertilizerCalculate();
     await fertilizerCalculate.calculate();
-
-    GetLocation getLocation = GetLocation();
-    await getLocation.determinePosition();
-
     Weather weather = Weather();
     await weather.getData();
 
