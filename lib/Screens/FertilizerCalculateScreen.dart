@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../Services/FertilizerCalculate.dart';
+import 'package:get_rice/Services/StoreResults.dart';
 
 class FertilizerCalculateScreen extends StatelessWidget {
   const FertilizerCalculateScreen({super.key});
@@ -11,9 +10,11 @@ class FertilizerCalculateScreen extends StatelessWidget {
       body: Center(
         child: TextButton(
           child: Text('calculate'),
-          onPressed: () {
-            FertilizerCalculate fertilizerCalculate = FertilizerCalculate();
-            fertilizerCalculate.calculate();
+          onPressed: () async {
+            StoreData storeData = StoreData();
+            await storeData.store();
+            Navigator.pop(context);
+            Navigator.pushNamed(context, '/result');
           },
         ),
       ),

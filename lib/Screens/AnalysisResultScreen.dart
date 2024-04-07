@@ -1,20 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:get_rice/Screens/FertilizerCalculateScreen.dart';
+import 'package:provider/provider.dart';
 
-class resultScreen extends StatefulWidget {
+import '../Services/FertilizerCalculate.dart';
+import '../Services/WeatherCalculate.dart';
+
+class resultScreen extends StatelessWidget {
   const resultScreen({Key? key}) : super(key: key);
 
-  @override
-  State<resultScreen> createState() => _resultScreenState();
-}
-
-class _resultScreenState extends State<resultScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        backgroundColor: Color.fromARGB(255, 03, 169, 244),
+        backgroundColor: const Color.fromARGB(255, 03, 169, 244),
         title: const Center(
           child: Text(
             "Results",
@@ -27,16 +26,16 @@ class _resultScreenState extends State<resultScreen> {
         ),
       ),
       body: Padding(
-        padding: EdgeInsets.all(20.0),
+        padding: const EdgeInsets.all(20.0),
         child: SingleChildScrollView(
           child: Column(
             children: [
               Center(
                 child: Container(
-                  padding:
-                      EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+                  padding: const EdgeInsets.symmetric(
+                      vertical: 8.0, horizontal: 16.0),
                   decoration: BoxDecoration(
-                    color: Color.fromARGB(255, 189, 189, 189),
+                    color: const Color.fromARGB(255, 189, 189, 189),
                     borderRadius: BorderRadius.circular(30.0),
                   ),
                   child: const Text(
@@ -62,77 +61,35 @@ class _resultScreenState extends State<resultScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
+                        const Text(
                           'Weather Details',
                           style: TextStyle(
                             fontSize: 16.0,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        SizedBox(height: 12.0),
+                        const SizedBox(height: 12.0),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text("Rain (Now):"),
+                            const Text("First Rainy date-time:"),
                             Container(
                               width: 60,
                               height: 60,
-                              decoration: BoxDecoration(
+                              decoration: const BoxDecoration(
                                 shape: BoxShape.circle,
                                 color: Color.fromARGB(255, 197, 202, 233),
                               ),
-                              padding: EdgeInsets.all(8.0),
+                              padding: const EdgeInsets.all(8.0),
                               child: Center(
                                 child: Text(
-                                  "2mm",
-                                  style: TextStyle(
+                                  Provider.of<Weather>(context)
+                                      .rainyDates
+                                      .first,
+                                  style: const TextStyle(
                                     color: Colors.black,
                                     fontWeight: FontWeight.bold,
                                   ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(height: 12.0),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text("Date:"),
-                            Container(
-                              padding: EdgeInsets.symmetric(
-                                  vertical: 8.0, horizontal: 16.0),
-                              decoration: BoxDecoration(
-                                color: Color.fromARGB(255, 197, 202, 233),
-                                borderRadius: BorderRadius.circular(30.0),
-                              ),
-                              child: Text(
-                                "2024-03-30",
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(height: 12.0),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text("Time:"),
-                            Container(
-                              padding: EdgeInsets.symmetric(
-                                  vertical: 8.0, horizontal: 36.0),
-                              decoration: BoxDecoration(
-                                color: Color.fromARGB(255, 197, 202, 233),
-                                borderRadius: BorderRadius.circular(30.0),
-                              ),
-                              child: Text(
-                                "17:11",
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold,
                                 ),
                               ),
                             ),
@@ -148,10 +105,10 @@ class _resultScreenState extends State<resultScreen> {
               ),
               Center(
                 child: Container(
-                  padding:
-                      EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+                  padding: const EdgeInsets.symmetric(
+                      vertical: 8.0, horizontal: 16.0),
                   decoration: BoxDecoration(
-                    color: Color.fromARGB(255, 189, 189, 189),
+                    color: const Color.fromARGB(255, 189, 189, 189),
                     borderRadius: BorderRadius.circular(30.0),
                   ),
                   child: const Text(
@@ -177,30 +134,30 @@ class _resultScreenState extends State<resultScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          'Nitrogen',
+                        const Text(
+                          'Urea',
                           style: TextStyle(
                             fontSize: 16.0,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        SizedBox(height: 12.0),
+                        const SizedBox(height: 12.0),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text("Recorded Amount (mg/kg):"),
+                            const Text("Need Amount (kg/ha):"),
                             Container(
                               width: 60,
                               height: 60,
-                              decoration: BoxDecoration(
+                              decoration: const BoxDecoration(
                                 shape: BoxShape.circle,
                                 color: Color.fromARGB(255, 197, 202, 233),
                               ),
-                              padding: EdgeInsets.all(8.0),
+                              padding: const EdgeInsets.all(8.0),
                               child: Center(
                                 child: Text(
-                                  "21",
-                                  style: TextStyle(
+                                  "${Provider.of<FertilizerCalculate>(context).needToFeedUreaInKG}",
+                                  style: const TextStyle(
                                     color: Colors.black,
                                     fontWeight: FontWeight.bold,
                                   ),
@@ -209,19 +166,19 @@ class _resultScreenState extends State<resultScreen> {
                             ),
                           ],
                         ),
-                        SizedBox(height: 12.0),
+                        const SizedBox(height: 12.0),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text("pH:"),
+                            const Text("pH:"),
                             Container(
-                              padding: EdgeInsets.symmetric(
+                              padding: const EdgeInsets.symmetric(
                                   vertical: 8.0, horizontal: 36.0),
                               decoration: BoxDecoration(
-                                color: Color.fromARGB(255, 197, 202, 233),
+                                color: const Color.fromARGB(255, 197, 202, 233),
                                 borderRadius: BorderRadius.circular(30.0),
                               ),
-                              child: Text(
+                              child: const Text(
                                 "7.2",
                                 style: TextStyle(
                                   color: Colors.black,
@@ -231,28 +188,6 @@ class _resultScreenState extends State<resultScreen> {
                             ),
                           ],
                         ),
-                        SizedBox(height: 12.0),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text("Status:"),
-                            Container(
-                              padding: EdgeInsets.symmetric(
-                                  vertical: 8.0, horizontal: 36.0),
-                              decoration: BoxDecoration(
-                                color: Color.fromARGB(255, 197, 202, 233),
-                                borderRadius: BorderRadius.circular(30.0),
-                              ),
-                              child: Text(
-                                "OK",
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
                       ],
                     ),
                   ),
@@ -271,30 +206,30 @@ class _resultScreenState extends State<resultScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          'Phosphorus',
+                        const Text(
+                          'Triple Super phosphate',
                           style: TextStyle(
                             fontSize: 16.0,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        SizedBox(height: 12.0),
+                        const SizedBox(height: 12.0),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text("Recorded Amount (mg/kg):"),
+                            const Text("Recorded Amount (mg/kg):"),
                             Container(
                               width: 60,
                               height: 60,
-                              decoration: BoxDecoration(
+                              decoration: const BoxDecoration(
                                 shape: BoxShape.circle,
                                 color: Color.fromARGB(255, 197, 202, 233),
                               ),
-                              padding: EdgeInsets.all(8.0),
+                              padding: const EdgeInsets.all(8.0),
                               child: Center(
                                 child: Text(
-                                  "41",
-                                  style: TextStyle(
+                                  "${Provider.of<FertilizerCalculate>(context).needToFeedTripleSuperPhosphateInKG}",
+                                  style: const TextStyle(
                                     color: Colors.black,
                                     fontWeight: FontWeight.bold,
                                   ),
@@ -303,19 +238,19 @@ class _resultScreenState extends State<resultScreen> {
                             ),
                           ],
                         ),
-                        SizedBox(height: 12.0),
+                        const SizedBox(height: 12.0),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text("pH:"),
+                            const Text("pH:"),
                             Container(
-                              padding: EdgeInsets.symmetric(
+                              padding: const EdgeInsets.symmetric(
                                   vertical: 8.0, horizontal: 40.0),
                               decoration: BoxDecoration(
-                                color: Color.fromARGB(255, 197, 202, 233),
+                                color: const Color.fromARGB(255, 197, 202, 233),
                                 borderRadius: BorderRadius.circular(30.0),
                               ),
-                              child: Text(
+                              child: const Text(
                                 "6.0",
                                 style: TextStyle(
                                   color: Colors.black,
@@ -325,28 +260,6 @@ class _resultScreenState extends State<resultScreen> {
                             ),
                           ],
                         ),
-                        SizedBox(height: 12.0),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text("Status:"),
-                            Container(
-                              padding: EdgeInsets.symmetric(
-                                  vertical: 8.0, horizontal: 36.0),
-                              decoration: BoxDecoration(
-                                color: Color.fromARGB(255, 197, 202, 233),
-                                borderRadius: BorderRadius.circular(30.0),
-                              ),
-                              child: Text(
-                                "High",
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
                       ],
                     ),
                   ),
@@ -365,30 +278,30 @@ class _resultScreenState extends State<resultScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          'Potassium',
+                        const Text(
+                          'Potassium Chloride',
                           style: TextStyle(
                             fontSize: 16.0,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        SizedBox(height: 12.0),
+                        const SizedBox(height: 12.0),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text("Recorded Amount (mg/kg):"),
+                            const Text("Recorded Amount (mg/kg):"),
                             Container(
                               width: 60,
                               height: 60,
-                              decoration: BoxDecoration(
+                              decoration: const BoxDecoration(
                                 shape: BoxShape.circle,
                                 color: Color.fromARGB(255, 197, 202, 233),
                               ),
-                              padding: EdgeInsets.all(8.0),
+                              padding: const EdgeInsets.all(8.0),
                               child: Center(
                                 child: Text(
-                                  "18",
-                                  style: TextStyle(
+                                  "${Provider.of<FertilizerCalculate>(context).needToFeedPotassiumChlorideInKG}",
+                                  style: const TextStyle(
                                     color: Colors.black,
                                     fontWeight: FontWeight.bold,
                                   ),
@@ -397,42 +310,20 @@ class _resultScreenState extends State<resultScreen> {
                             ),
                           ],
                         ),
-                        SizedBox(height: 12.0),
+                        const SizedBox(height: 12.0),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text("pH:"),
+                            const Text("pH:"),
                             Container(
-                              padding: EdgeInsets.symmetric(
+                              padding: const EdgeInsets.symmetric(
                                   vertical: 8.0, horizontal: 38.0),
                               decoration: BoxDecoration(
-                                color: Color.fromARGB(255, 197, 202, 233),
+                                color: const Color.fromARGB(255, 197, 202, 233),
                                 borderRadius: BorderRadius.circular(30.0),
                               ),
-                              child: Text(
+                              child: const Text(
                                 "5.9",
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(height: 12.0),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text("Status:"),
-                            Container(
-                              padding: EdgeInsets.symmetric(
-                                  vertical: 8.0, horizontal: 36.0),
-                              decoration: BoxDecoration(
-                                color: Color.fromARGB(255, 197, 202, 233),
-                                borderRadius: BorderRadius.circular(30.0),
-                              ),
-                              child: Text(
-                                "Low",
                                 style: TextStyle(
                                   color: Colors.black,
                                   fontWeight: FontWeight.bold,
@@ -450,6 +341,19 @@ class _resultScreenState extends State<resultScreen> {
                 height: 20.0,
               ),
               ElevatedButton(
+                onPressed: () {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            const FertilizerCalculateScreen()),
+                  );
+                },
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(
+                    const Color.fromARGB(255, 3, 169, 244),
+                  ),
+                ),
                 child: const Text(
                   "Home",
                   style: TextStyle(
@@ -458,16 +362,6 @@ class _resultScreenState extends State<resultScreen> {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                onPressed: () {
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => FertilizerCalculateScreen()),
-                  );
-                },
-                style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(
-                        Color.fromARGB(255, 3, 169, 244))),
               ),
             ],
           ),
