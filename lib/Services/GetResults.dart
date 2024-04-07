@@ -4,41 +4,37 @@ import 'package:flutter/cupertino.dart';
 
 class GetResult extends ChangeNotifier {
   final List<Map<String, dynamic>> userData = [];
+
   getResultFromFirebse() async {
-    var db = FirebaseFirestore.instance;
-    var auth = FirebaseAuth.instance;
-    final querySnapshot = await db
-        .collection("result")
-        .where(FieldPath.documentId,
-            isGreaterThanOrEqualTo: auth.currentUser?.uid)
-        .where(FieldPath.documentId, isLessThan: 'auth.currentUser?.uid' + 'z')
-        .get();
+    if (userData.length == 0) {
+      var db = FirebaseFirestore.instance;
+      var auth = FirebaseAuth.instance;
+      final querySnapshot = await db
+          .collection("result")
+          .where(FieldPath.documentId,
+              isGreaterThanOrEqualTo: auth.currentUser?.uid)
+          .where(FieldPath.documentId,
+              isLessThan: 'auth.currentUser?.uid' + 'z')
+          .get();
 
-    querySnapshot.docs.forEach((doc) {
-      userData.add(doc.data());
-    });
+      querySnapshot.docs.forEach((doc) {
+        userData.add(doc.data());
+      });
 
-    print(userData.length);
-    print(userData);
+      print(userData.length);
+      print(userData);
 
-    // Iterate through userData list
-    for (var data in userData) {
-      // Access each data item
-      print("Date: ${data['date']}");
-      print("Potassium: ${data['potassium']}");
-      print("Nitrogen: ${data['nitrogen']}");
-      print("pH: ${data['ph']}");
-      print("Dates: ${data['dates']}");
-      print("Phosphorus: ${data['phosphorus']}");
+      // Iterate through userData list
+      for (var data in userData) {
+        // Access each data item
+        print("Date: ${data['date']}");
+        print("Potassium: ${data['potassium']}");
+        print("Nitrogen: ${data['nitrogen']}");
+        print("pH: ${data['ph']}");
+        print("Dates: ${data['dates']}");
+        print("Phosphorus: ${data['phosphorus']}");
+      }
+      notifyListeners();
     }
-
-// Access specific element by index
-//     var firstData = userData[0];
-//     print("Date: ${firstData['date']}");
-//     print("Potassium: ${firstData['potassium']}");
-//     print("Nitrogen: ${firstData['nitrogen']}");
-//     print("pH: ${firstData['ph']}");
-//     print("Dates: ${firstData['dates']}");
-//     print("Phosphorus: ${firstData['phosphorus']}");
   }
 }
