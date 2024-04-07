@@ -1,24 +1,40 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 
-class GetResult {
+class GetResult extends ChangeNotifier {
+  final List<Map<String, dynamic>> userData = [];
+
   getResultFromFirebse() async {
-    var db = FirebaseFirestore.instance;
-    var auth = FirebaseAuth.instance;
-    final querySnapshot = await db
-        .collection("result")
-        .where(FieldPath.documentId,
-            isGreaterThanOrEqualTo: auth.currentUser?.uid)
-        .where(FieldPath.documentId, isLessThan: 'auth.currentUser?.uid' + 'z')
-        .get();
+    if (userData.length == 0) {
+      var db = FirebaseFirestore.instance;
+      var auth = FirebaseAuth.instance;
+      final querySnapshot = await db
+          .collection("result")
+          .where(FieldPath.documentId,
+              isGreaterThanOrEqualTo: auth.currentUser?.uid)
+          .where(FieldPath.documentId,
+              isLessThan: 'auth.currentUser?.uid' + 'z')
+          .get();
 
-    final List<Map<String, dynamic>> userData = [];
+      querySnapshot.docs.forEach((doc) {
+        userData.add(doc.data());
+      });
 
-    querySnapshot.docs.forEach((doc) {
-      userData.add(doc.data());
-    });
+      print(userData.length);
+      print(userData);
 
-    print(userData.length);
-    print(userData);
+      // Iterate through userData list
+      for (var data in userData) {
+        // Access each data item
+        print("Date: ${data['date']}");
+        print("Potassium: ${data['potassium']}");
+        print("Nitrogen: ${data['nitrogen']}");
+        print("pH: ${data['ph']}");
+        print("Dates: ${data['dates']}");
+        print("Phosphorus: ${data['phosphorus']}");
+      }
+      notifyListeners();
+    }
   }
 }
