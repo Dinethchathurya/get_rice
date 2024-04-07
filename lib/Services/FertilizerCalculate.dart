@@ -23,17 +23,22 @@ class FertilizerCalculate extends ChangeNotifier {
   late String isNeedToFeedPotassium;
   late String isNeedToFeedPh;
 
-  late int needToFeedUreaInKG;
-  late int needToFeedTripleSuperPhosphateInKG;
-  late int needToFeedPotassiumChlorideInKG;
+  int needToFeedUreaInKG = 0;
+  int needToFeedTripleSuperPhosphateInKG = 0;
+  int needToFeedPotassiumChlorideInKG = 0;
 
-  calculate() {
+  calculate() async {
     SensorDataGetReady sensorDataGetReady = SensorDataGetReady();
-    sensorDataGetReady.modifyDate();
+    await sensorDataGetReady.modifyDate();
     // get modified sensor data
-    sensorNitrogen = sensorDataGetReady.averageNInt;
-    sensorPhosphorus = sensorDataGetReady.averagePInt;
-    sensorPotassium = sensorDataGetReady.averageKInt;
+    // sensorNitrogen = sensorDataGetReady.averageNInt;
+    // sensorPhosphorus = sensorDataGetReady.averagePInt;
+    // sensorPotassium = sensorDataGetReady.averageKInt;
+    // sensorPh = sensorDataGetReady.averagePh;
+
+    sensorNitrogen = 41;
+    sensorPhosphorus = 19;
+    sensorPotassium = 99;
     sensorPh = sensorDataGetReady.averagePh;
 
     isNeedToFeedNitrogen = (sensorNitrogen < shouldPresentInSoilNitrogen)
@@ -48,7 +53,7 @@ class FertilizerCalculate extends ChangeNotifier {
     isNeedToFeedPh = (sensorPh < shouldPresentInSoilPh)
         ? calculatePh(sensorPh, shouldPresentInSoilPh)
         : 'Ph level is ok';
-
+    notifyListeners();
     print(
         '$isNeedToFeedNitrogen, $isNeedToFeedPhosphorus, $isNeedToFeedPotassium, $isNeedToFeedPh');
   }
@@ -64,7 +69,7 @@ class FertilizerCalculate extends ChangeNotifier {
     //needToFeedUreaInMG has mg/kg
     // to convert kg/ha call convertToHectare() method.
     needToFeedUreaInKG = convertToHectare(needToFeedUreaInMG);
-
+    notifyListeners();
     return 'Nitrogen(N) level is low $differenceInNitrogen to fix level you can use Urea $needToFeedUreaInMG mg/kg, $needToFeedUreaInKG kg/ha ';
   }
 
@@ -81,6 +86,7 @@ class FertilizerCalculate extends ChangeNotifier {
 
     needToFeedTripleSuperPhosphateInKG =
         convertToHectare(needToFeedTripleSuperPhosphateInMG);
+    notifyListeners();
     return 'Phosphorus level is low to fix level you can use Triple Super phosphate $needToFeedTripleSuperPhosphateInKG kg/ha';
   }
 
@@ -96,6 +102,7 @@ class FertilizerCalculate extends ChangeNotifier {
 
     needToFeedPotassiumChlorideInKG =
         convertToHectare(needToFeedPotassiumChlorideInMG);
+    notifyListeners();
     return 'Potassium level is low to fix level you can use $needToFeedPotassiumChlorideInKG  kg/ha ';
   }
 
