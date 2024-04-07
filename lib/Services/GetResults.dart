@@ -37,4 +37,9 @@ class GetResult extends ChangeNotifier {
       notifyListeners();
     }
   }
+
+  appRefresh() {
+    userData.clear();
+    getResultFromFirebse();
+  }
 }

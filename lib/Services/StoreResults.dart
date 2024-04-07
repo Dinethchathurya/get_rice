@@ -36,7 +36,7 @@ class StoreData extends ChangeNotifier {
       "phosphorus": phosphorus,
       "potassium": potassium,
       "ph": ph,
-      "dates": rainy,
+      "dates": rainy.isNotEmpty ? rainy : 'No rainy days',
     };
 
     await db
