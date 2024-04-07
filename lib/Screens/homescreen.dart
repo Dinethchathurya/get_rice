@@ -121,6 +121,11 @@ class _GetDataState extends State<GetData> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton.extended(
+          onPressed: () async {
+            await Provider.of<GetResult>(context, listen: false).appRefresh();
+          },
+          label: Text('Re-Fresh')),
       appBar: AppBar(
         backgroundColor: Color.fromARGB(255, 3, 169, 244),
         title: const Center(
@@ -147,14 +152,29 @@ class _GetDataState extends State<GetData> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        SizedBox(
+                          height: 15.0,
+                        ),
                         Text('Date: ${data['date']}'),
                         SizedBox(
                           height: 15.0,
                         ),
                         Text('Potassium: ${data['potassium']}'),
+                        SizedBox(
+                          height: 15.0,
+                        ),
                         Text('Nitrogen: ${data['nitrogen']}'),
+                        SizedBox(
+                          height: 15.0,
+                        ),
                         Text('pH: ${data['ph']}'),
+                        SizedBox(
+                          height: 15.0,
+                        ),
                         Text('Phosphorus: ${data['phosphorus']}'),
+                        SizedBox(
+                          height: 15.0,
+                        ),
                         Text('Dates: ${data['dates']}'),
                       ],
                     ),

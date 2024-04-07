@@ -7,20 +7,11 @@ import 'GetLocation.dart';
 
 class Weather extends ChangeNotifier {
   late List<String> rainyDates = [];
-
   getData() async {
     String apiKey = '6f94d27289744596d64417bacd2fc36c';
 
-    //call get location method before get location data
-    //  await Provider.of<GetLocation>(context).determinePosition();
-
     GetLocation getLocation = GetLocation();
     await getLocation.determinePosition();
-
-    //get location date form location class
-    // double lat = Provider.of<GetLocation>(context, listen: false).latitude;
-    // double lon = Provider.of<GetLocation>(context, listen: false).longitude;
-    //
 
     double lat = getLocation.latitude;
     double lon = getLocation.longitude;
@@ -40,7 +31,15 @@ class Weather extends ChangeNotifier {
         rainyDates.add(date);
       }
     }
-    print(
-        'We suggest you to put fertilizer before ${rainyDates.first}. Rainy date/dates : $rainyDates');
+
+    notifyListeners();
+
+    // Check if rainyDates is not empty before accessing its first element
+    if (rainyDates.isNotEmpty) {
+      print(
+          'We suggest you to put fertilizer before ${rainyDates.first}. Rainy date/dates : $rainyDates');
+    } else {
+      print('No rainy dates found.');
+    }
   }
 }
