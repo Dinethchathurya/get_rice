@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
 
 class BluetoothScreen extends StatefulWidget {
-  const BluetoothScreen({super.key});
+  const BluetoothScreen({Key? key}) : super(key: key);
 
   @override
   State<BluetoothScreen> createState() => _BluetoothScreenState();
@@ -22,6 +22,12 @@ class _BluetoothScreenState extends State<BluetoothScreen> {
   String _pos = "0";
   String _pota = "0";
   String _ph = "0";
+
+  // Create four lists of type 'String' to store data about the nutrients.
+  List<String> nitrogenData = [];
+  List<String> phosphorusData = [];
+  List<String> potassiumData = [];
+  List<String> phData = [];
 
   @override
   void initState() {
@@ -43,131 +49,160 @@ class _BluetoothScreenState extends State<BluetoothScreen> {
         child: Container(
           margin: const EdgeInsets.only(bottom: 80.0),
           child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Container(
-                  margin: const EdgeInsets.only(top: 10.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        _connected ? 'Connected' : 'Disconnected',
-                        style: const TextStyle(fontSize: 18),
-                      ),
-                    ],
-                  ),
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(
+                margin: const EdgeInsets.only(top: 10.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      _connected ? 'Connected' : 'Disconnected',
+                      style: const TextStyle(fontSize: 18),
+                    ),
+                  ],
                 ),
-                Container(
-                  margin: const EdgeInsets.all(30.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
+              ),
+              Container(
+                margin: const EdgeInsets.all(30.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      children: [
+                        FilledButton(
+                          onPressed: _connected
+                              ? _disconnectFromDevice
+                              : _showDeviceListPopup,
+                          child:
+                              Text(_connected ? 'Disconnect' : 'Select Device'),
+                        )
+                      ],
+                    ),
+                    if (_connected)
                       Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
-                          FilledButton(
-                            onPressed: _connected
-                                ? _disconnectFromDevice
-                                : _showDeviceListPopup,
-                            style: ButtonStyle(
-                                backgroundColor: MaterialStateProperty.all(
-                                    Colors.blue.shade400),
-                                foregroundColor:
-                                    MaterialStateProperty.all(Colors.white)),
-                            child: Text(
-                                _connected ? 'Disconnect' : 'Select Device'),
+                          Text("Device: ${_connectedDevice.name}"),
+                          Text(
+                            _connectedDevice.address.toString(),
+                            style: const TextStyle(
+                                fontSize: 12, color: Colors.black38),
                           )
                         ],
-                      ),
-                      if (_connected)
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            Text("Device: ${_connectedDevice.name}"),
-                            Text(
-                              _connectedDevice.address.toString(),
-                              style: const TextStyle(
-                                  fontSize: 12, color: Colors.black38),
-                            )
-                          ],
-                        )
-                    ],
-                  ),
+                      )
+                  ],
                 ),
-                Container(
-                  margin: const EdgeInsets.all(30.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Column(
-                        children: [
-                          FilledButton(
-                            onPressed: () {
-                              _connected ? _sendData(data: "5") : null;
-                            },
-                            style: ButtonStyle(
-                                backgroundColor: MaterialStateProperty.all(
-                                    Colors.blue.shade400),
-                                foregroundColor:
-                                    MaterialStateProperty.all(Colors.white)),
-                            child: Text("Read Data"),
-                          ),
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          const Padding(
-                            padding: EdgeInsets.only(right: 20.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  "Nitrogen: ",
-                                  style: TextStyle(fontSize: 20.0),
-                                ),
-                                Text(
-                                  "Phosphorus: ",
-                                  style: TextStyle(fontSize: 20.0),
-                                ),
-                                Text(
-                                  "Potassium: ",
-                                  style: TextStyle(fontSize: 20.0),
-                                ),
-                                Text(
-                                  "PH: ",
-                                  style: TextStyle(fontSize: 20.0),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Column(
+              ),
+              Container(
+                margin: const EdgeInsets.all(30.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      children: [
+                        FilledButton(
+                          onPressed: () {
+                            _connected ? _sendData(data: "5") : null;
+                          },
+                          child: Text("Read Data"),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Padding(
+                          padding: EdgeInsets.only(right: 20.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                _nitro,
-                                style: const TextStyle(fontSize: 20.0),
+                                "Nitrogen: ",
+                                style: TextStyle(fontSize: 20.0),
                               ),
                               Text(
-                                _pos,
-                                style: const TextStyle(fontSize: 20.0),
+                                "Phosphorus: ",
+                                style: TextStyle(fontSize: 20.0),
                               ),
                               Text(
-                                _pota,
-                                style: const TextStyle(fontSize: 20.0),
+                                "Potassium: ",
+                                style: TextStyle(fontSize: 20.0),
                               ),
                               Text(
-                                _ph,
-                                style: const TextStyle(fontSize: 20.0),
-                              )
+                                "PH: ",
+                                style: TextStyle(fontSize: 20.0),
+                              ),
                             ],
                           ),
-                        ],
-                      ),
-                    ],
-                  ),
+                        ),
+                        Column(
+                          children: [
+                            Text(
+                              _nitro,
+                              style: const TextStyle(fontSize: 20.0),
+                            ),
+                            Text(
+                              _pos,
+                              style: const TextStyle(fontSize: 20.0),
+                            ),
+                            Text(
+                              _pota,
+                              style: const TextStyle(fontSize: 20.0),
+                            ),
+                            Text(
+                              _ph,
+                              style: const TextStyle(fontSize: 20.0),
+                            )
+                          ],
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
-              ]),
+              ),
+              // Display data as cards.
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Data:',
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(height: 10),
+                  _buildNutrientCards('Nitrogen', nitrogenData),
+                  _buildNutrientCards('Phosphorus', phosphorusData),
+                  _buildNutrientCards('Potassium', potassiumData),
+                  _buildNutrientCards('pH', phData),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
+    );
+  }
+
+  Widget _buildNutrientCards(String nutrient, List<String> data) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          nutrient,
+          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+        ),
+        SizedBox(height: 5),
+        Column(
+          children: data.map((value) {
+            return Card(
+              child: ListTile(
+                title: Text(value),
+              ),
+            );
+          }).toList(),
+        ),
+        SizedBox(height: 10),
+      ],
     );
   }
 
@@ -247,6 +282,12 @@ class _BluetoothScreenState extends State<BluetoothScreen> {
             _pos = _getJson(receivedData, "pos");
             _pota = _getJson(receivedData, "pota");
             _ph = _getJson(receivedData, "ph");
+
+            // Add received data to corresponding lists
+            nitrogenData.add(_nitro);
+            phosphorusData.add(_pos);
+            potassiumData.add(_pota);
+            phData.add(_ph);
           });
         },
         onDone: () {
@@ -287,7 +328,7 @@ class _BluetoothScreenState extends State<BluetoothScreen> {
     }
   }
 
-  _getJson(String data, String name) {
+  String _getJson(String data, String name) {
     try {
       Map<String, dynamic> jsonData = jsonDecode(data);
       String value = jsonData[name];
