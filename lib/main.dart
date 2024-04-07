@@ -1,8 +1,17 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+
+import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
+import 'package:get_rice/Screens/bluetooth_screen.dart';
+import 'package:provider/provider.dart';
+import 'Screens/BottomSheet.dart';
+import 'package:get_rice/Screens/Current.dart';
+import 'package:get_rice/Screens/Past.dart';
+
 import 'package:get_rice/Screens/Current.dart';
 import 'package:get_rice/Screens/Past.dart';
 import 'package:provider/provider.dart';
+
 
 import 'Screens/AnalysisResultScreen.dart';
 import 'Screens/BottomSheet.dart';
@@ -19,11 +28,18 @@ import 'Services/WeatherCalculate.dart';
 import 'firebase_options.dart';
 
 Future<void> main() async {
+  // WidgetsFlutterBinding.ensureInitialized();
+  // await Firebase.initializeApp(
+  //   options: DefaultFirebaseOptions.currentPlatform,
+  // );
+
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
+
     options: DefaultFirebaseOptions.currentPlatform,
   );
   runApp(MyApp());
+
 }
 
 class MyApp extends StatelessWidget {
@@ -50,7 +66,9 @@ class MyApp extends StatelessWidget {
       builder: (BuildContext context, Widget) {
         return MaterialApp(
           theme: ThemeData.light(),
-          initialRoute: '/homePage',
+
+          initialRoute: '/testBluetooth',
+
           routes: {
             '/': (context) => LoginScreen(),
             '/register': (context) => RegisterScreen(),
@@ -58,13 +76,17 @@ class MyApp extends StatelessWidget {
                 FertilizerCalculateScreen(),
             '/WeatherCalculateScreen': (context) => WeatherCalculateScreen(),
             '/testhome': (context) => TestHome(),
+
+            '/testBluetooth': (context) => BluetoothScreen(),
             '/bottomSheet': (context) => BottomSheetWidget(),
             '/result': (context) => resultScreen(),
             'CurrentPage': (context) => CurrentPage(),
             '/result': (context) => resultScreen(),
             'CurrentPage': (context) => CurrentPage(),
             '/past': (context) => Past(),
+
             '/homePage': (context) => NavigationExample(),
+
           },
         );
       },
@@ -89,3 +111,5 @@ class TestHome extends StatelessWidget {
     );
   }
 }
+
+
