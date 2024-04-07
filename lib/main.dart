@@ -1,27 +1,16 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-
-import 'homescreen.dart'; // Import the homescreen.dart file
-
-
-import 'package:provider/provider.dart';
-
-
-
-import 'Screens/BottomSheet.dart';
-
-
-
 import 'package:get_rice/Screens/Current.dart';
 import 'package:get_rice/Screens/Past.dart';
-
+import 'package:provider/provider.dart';
 
 import 'Screens/AnalysisResultScreen.dart';
-
+import 'Screens/BottomSheet.dart';
 import 'Screens/FertilizerCalculateScreen.dart';
 import 'Screens/LoginScreen.dart';
 import 'Screens/RegisterScreen.dart';
 import 'Screens/WeatherCalculateScreen.dart';
+import 'Screens/homescreen.dart';
 import 'Services/FertilizerCalculate.dart';
 import 'Services/GetLocation.dart';
 import 'Services/GetResults.dart';
@@ -29,22 +18,17 @@ import 'Services/StoreResults.dart';
 import 'Services/WeatherCalculate.dart';
 import 'firebase_options.dart';
 
-
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(const MyApp());
-
-
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-
-
     return MultiProvider(
       providers: [
         ChangeNotifierProvider<FertilizerCalculate>(
@@ -59,11 +43,14 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<GetLocation>(
           create: (context) => GetLocation(),
         ),
+        ChangeNotifierProvider<GetResult>(
+          create: (context) => GetResult(),
+        ),
       ],
       builder: (BuildContext context, Widget) {
         return MaterialApp(
           theme: ThemeData.light(),
-          initialRoute: '/testhome',
+          initialRoute: '/homePage',
           routes: {
             '/': (context) => LoginScreen(),
             '/register': (context) => RegisterScreen(),
@@ -71,19 +58,16 @@ class MyApp extends StatelessWidget {
                 FertilizerCalculateScreen(),
             '/WeatherCalculateScreen': (context) => WeatherCalculateScreen(),
             '/testhome': (context) => TestHome(),
-                    '/bottomSheet' : (context) => BottomSheetWidget(),
-         '/result': (context) => resultScreen(),
-        'CurrentPage': (context) => CurrentPage(),
-
-        '/result': (context) => resultScreen(),
-        'CurrentPage': (context) => CurrentPage(),
-
-        '/past': (context) => Past(),
+            '/bottomSheet': (context) => BottomSheetWidget(),
+            '/result': (context) => resultScreen(),
+            'CurrentPage': (context) => CurrentPage(),
+            '/result': (context) => resultScreen(),
+            'CurrentPage': (context) => CurrentPage(),
+            '/past': (context) => Past(),
+            '/homePage': (context) => NavigationExample(),
           },
         );
-
       },
-
     );
   }
 }
@@ -100,32 +84,7 @@ class TestHome extends StatelessWidget {
             onPressed: () async {
               GetResult getResult = GetResult();
               getResult.getResultFromFirebse();
-
-              // StoreData storeData = StoreData();
-              // storeData.store();
-            }
-
-            // FertilizerCalculate fertilizerCalculate = FertilizerCalculate();
-            // await fertilizerCalculate.calculate(); // Call necessary method
-            // await Provider.of<Weather>(context, listen: false).getData(context);
-            // StoreResults storeResults = StoreResults();
-            // storeResults.store(
-            //   context,
-            //   rainyDates:
-            //       Provider.of<Weather>(context, listen: false).rainyDates,
-            //   nitrogen: Provider.of<FertilizerCalculate>(context, listen: false)
-            //       .isNeedToFeedNitrogen,
-            //   phosphorus:
-            //       Provider.of<FertilizerCalculate>(context, listen: false)
-            //           .isNeedToFeedPhosphorus,
-            //   potassium:
-            //       Provider.of<FertilizerCalculate>(context, listen: false)
-            //           .isNeedToFeedPotassium,
-            //   ph: Provider.of<FertilizerCalculate>(context, listen: false)
-            //       .isNeedToFeedPh,
-            // );
-
-            ),
+            }),
       ),
     );
   }
