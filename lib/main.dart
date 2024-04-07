@@ -43,6 +43,9 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<GetLocation>(
           create: (context) => GetLocation(),
         ),
+        ChangeNotifierProvider<GetResult>(
+          create: (context) => GetResult(),
+        ),
       ],
       builder: (BuildContext context, Widget) {
         return MaterialApp(
