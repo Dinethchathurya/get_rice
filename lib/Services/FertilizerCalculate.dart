@@ -30,16 +30,17 @@ class FertilizerCalculate extends ChangeNotifier {
   calculate() async {
     SensorDataGetReady sensorDataGetReady = SensorDataGetReady();
     await sensorDataGetReady.modifyDate();
-    // get modified sensor data
-    // sensorNitrogen = sensorDataGetReady.averageNInt;
-    // sensorPhosphorus = sensorDataGetReady.averagePInt;
-    // sensorPotassium = sensorDataGetReady.averageKInt;
-    // sensorPh = sensorDataGetReady.averagePh;
 
-    sensorNitrogen = 41;
-    sensorPhosphorus = 19;
-    sensorPotassium = 99;
+    //get modified sensor data
+    sensorNitrogen = sensorDataGetReady.averageNInt;
+    sensorPhosphorus = sensorDataGetReady.averagePInt;
+    sensorPotassium = sensorDataGetReady.averageKInt;
     sensorPh = sensorDataGetReady.averagePh;
+
+    // sensorNitrogen = 41;
+    // sensorPhosphorus = 19;
+    // sensorPotassium = 99;
+    // sensorPh = sensorDataGetReady.averagePh;
 
     isNeedToFeedNitrogen = (sensorNitrogen < shouldPresentInSoilNitrogen)
         ? calculateNitrogen(sensorNitrogen, shouldPresentInSoilNitrogen)

@@ -1,7 +1,10 @@
 import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
+
+import '../Services/ToRedySensorDataToAnalysis.dart';
 
 class BluetoothScreen extends StatefulWidget {
   const BluetoothScreen({super.key});
@@ -32,6 +35,13 @@ class _BluetoothScreenState extends State<BluetoothScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {
+          Navigator.pop(context);
+          Navigator.pushNamed(context, '/result');
+        },
+        label: Text('Calculate'),
+      ),
       appBar: AppBar(
         backgroundColor: Colors.blue.shade400,
         foregroundColor: Colors.white,
@@ -93,7 +103,6 @@ class _BluetoothScreenState extends State<BluetoothScreen> {
                     ],
                   ),
                 ),
-
                 Container(
                   margin: const EdgeInsets.all(30.0),
                   child: Row(
@@ -242,6 +251,7 @@ class _BluetoothScreenState extends State<BluetoothScreen> {
         (Uint8List data) {
           String receivedData = utf8.decode(data);
           print("Received data: $receivedData");
+          saveData(receivedData);
 
           setState(() {
             _nitro = _getJson(receivedData, "nitro");
@@ -300,4 +310,11 @@ class _BluetoothScreenState extends State<BluetoothScreen> {
     return '-';
   }
 
+  saveData(String receivedData) {
+    SensorDataGetReady sensorDataGetReady = SensorDataGetReady();
+    sensorDataGetReady.N.add(_getJson(receivedData, "nitro"));
+    sensorDataGetReady.P.add(_getJson(receivedData, "pos"));
+    sensorDataGetReady.K.add(_getJson(receivedData, "pota"));
+    sensorDataGetReady.Ph.add(_getJson(receivedData, "ph"));
+  }
 }
