@@ -6,9 +6,9 @@ class FertilizerCalculate extends ChangeNotifier {
   // I get lower boundary of levels for calculation. Because if current soil levels are lower
   // than lower boundary's level then only we need to feed Fertilizer.
 
-  static const shouldPresentInSoilNitrogen = 50;
+  static const shouldPresentInSoilNitrogen = 30;
   static const shouldPresentInSoilPhosphorus = 20;
-  static const shouldPresentInSoilPotassium = 100;
+  static const shouldPresentInSoilPotassium = 20;
   static const shouldPresentInSoilPh = 5.5;
 
   // sensor readings,
