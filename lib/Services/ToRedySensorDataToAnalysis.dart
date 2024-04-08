@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 
 class SensorDataGetReady extends ChangeNotifier {
-  List<String> N = [];
-  List<String> P = [];
-  List<String> K = [];
-  List<String> Ph = [];
+  List<String> N = ['11'];
+  List<String> P = ['10'];
+  List<String> K = ['12'];
+  List<String> Ph = ['6.26'];
 
   List<int> Ns = [];
   List<int> Ps = [];
