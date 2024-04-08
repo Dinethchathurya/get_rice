@@ -55,7 +55,7 @@ class MyApp extends StatelessWidget {
       builder: (BuildContext context, Widget) {
         return MaterialApp(
           theme: ThemeData.light(),
-          initialRoute: '/homePage',
+          initialRoute: '/',
           routes: {
             '/': (context) => LoginScreen(),
             '/register': (context) => RegisterScreen(),

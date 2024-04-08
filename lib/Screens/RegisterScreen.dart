@@ -80,7 +80,7 @@ class RegisterScreen extends StatelessWidget {
                       onPressed: () async {
                         await auth.createUserWithEmailAndPassword(
                             email: email, password: password);
-                        Navigator.pushNamed(context, '/testhome');
+                        Navigator.pushNamed(context, '/homePage');
                       },
                       color: Colors.teal,
                       textColor: Colors.white,

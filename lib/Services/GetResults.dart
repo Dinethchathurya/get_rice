@@ -14,7 +14,7 @@ class GetResult extends ChangeNotifier {
           .where(FieldPath.documentId,
               isGreaterThanOrEqualTo: auth.currentUser?.uid)
           .where(FieldPath.documentId,
-              isLessThan: 'auth.currentUser?.uid' + 'z')
+              isLessThan: '${auth.currentUser?.uid}' + 'z')
           .get();
 
       querySnapshot.docs.forEach((doc) {

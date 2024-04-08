@@ -304,7 +304,7 @@ class resultScreen extends StatelessWidget {
                           StoreData storeData = StoreData();
                           await storeData.store();
                           Navigator.pop(context);
-                          Navigator.pushNamed(context, '/');
+                          Navigator.pushNamed(context, '/homePage');
                         },
                         style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all(

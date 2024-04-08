@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../Services/GetResults.dart';
-import 'Current.dart';
+import 'bluetooth_screen.dart';
 
 class BackgroundImageHomePage extends StatelessWidget {
   const BackgroundImageHomePage({super.key});
@@ -83,7 +83,7 @@ class _NavigationExampleState extends State<NavigationExample> {
       ),
       body: <Widget>[
         BackgroundImageHomePage(),
-        CurrentPage(),
+        BluetoothScreen(),
         GetData(),
       ][currentPageIndex],
     );
